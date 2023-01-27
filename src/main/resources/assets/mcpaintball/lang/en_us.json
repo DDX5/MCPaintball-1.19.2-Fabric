@@ -1,0 +1,55 @@
+{
+  "Comment": "Items",
+  "item.mcpaintball.weapon.pistol.red_pistol": "Red Team Pistol",
+  "item.mcpaintball.weapon.pistol.blue_pistol": "Blue Team Pistol",
+  "item.mcpaintball.weapon.pistol.green_pistol": "Green Team Pistol",
+
+  "item.mcpaintball.weapon.shotgun.green_shotgun": "Green Team Shotgun",
+  "item.mcpaintball.weapon.shotgun.blue_shotgun": "Blue Team Shotgun",
+  "item.mcpaintball.weapon.shotgun.red_shotgun": "Red Team Shotgun",
+
+  "item.mcpaintball.weapon.rifle.green_rifle": "Green Team Rifle",
+  "item.mcpaintball.weapon.rifle.blue_rifle": "Blue Team Rifle",
+  "item.mcpaintball.weapon.rifle.red_rifle": "Red Team Rifle",
+
+  "item.mcpaintball.armor.red_boots": "Red Team Boots",
+  "item.mcpaintball.armor.blue_boots": "Blue Team Boots",
+  "item.mcpaintball.armor.green_boots": "Green Team Boots",
+
+  "item.mcpaintball.armor.red_leggings": "Red Team Leggings",
+  "item.mcpaintball.armor.blue_leggings": "Blue Team Leggings",
+  "item.mcpaintball.armor.green_leggings": "Green Team Leggings",
+
+  "item.mcpaintball.armor.red_chestplate": "Red Team Chestplate",
+  "item.mcpaintball.armor.blue_chestplate": "Blue Team Chestplate",
+  "item.mcpaintball.armor.green_chestplate": "Green Team Chestplate",
+
+  "item.mcpaintball.armor.red_helmet": "Red Team Helmet",
+  "item.mcpaintball.armor.blue_helmet": "Blue Team Helmet",
+  "item.mcpaintball.armor.green_helmet": "Green Team Helmet",
+
+  "item.mcpaintball.utility.red_remote": "Red Team Remote Detonator",
+  "item.mcpaintball.utility.green_remote": "Green Team Remote Detonator",
+  "item.mcpaintball.utility.blue_remote": "Blue Team Remote Detonator",
+
+  "Comment": "Entities",
+  "entity.mcpaintball.red_paintball": "Red Paintball",
+  "entity.mcpaintball.blue_paintball": "Blue Paintball",
+  "entity.mcpaintball.green_paintball": "Green Paintball",
+
+  "Comment": "Blocks",
+  "block.mcpaintball.utility.red_explosive": "Red Team C4",
+  "block.mcpaintball.utility.blue_explosive": "Blue Team C4",
+  "block.mcpaintball.utility.green_explosive": "Green Team C4",
+
+  "Comment": "CreativeTabs",
+  "itemGroup.mcpaintball.paintball": "Paintballing",
+
+
+  "Comment": "Subtitles",
+  "subtitle.mcpaintball.single": "Paintball Fired",
+  "subtitle.mcpaintball.ding": "Shot Hit",
+  "subtitle.mcpaintball.splat": "Paintball Splat",
+  "subtitle.mcpaintball.set": "C4 Target Set",
+  "subtitle.mcpaintball.det": "Detonate C4"
+}

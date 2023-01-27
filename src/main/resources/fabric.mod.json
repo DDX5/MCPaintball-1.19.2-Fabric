@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "mcpaintball",
+  "version": "1.0.0",
+
+  "name": "MC Paintball",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "Multicoder"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT Licence",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "org.multicoder.mcpaintball.MCPaintball"
+    ],
+    "client": [
+      "org.multicoder.mcpaintball.MCPaintballClient"
+    ]
+  },
+  "mixins": [
+    "mcpaintball.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric-api": "*",
+    "minecraft": "~1.19.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
