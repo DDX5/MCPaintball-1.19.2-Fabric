@@ -28,5 +28,11 @@
     "sounds": [
       "mcpaintball:det"
     ]
+  },
+  "rem": {
+    "subtitle": "subtitle.mcpaintball.rem",
+    "sounds": [
+      "mcpaintball:rem"
+    ]
   }
 }

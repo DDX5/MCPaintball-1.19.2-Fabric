@@ -7,6 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -29,25 +32,19 @@ public class BlueRemote extends Item
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand)
     {
         ItemStack stack = user.getStackInHand(hand);
-        NbtCompound Tag = stack.getNbt();
-        if(Tag == null)
+        NbtCompound Tag = stack.getOrCreateNbt();
+        if(user.isSneaking() && Tag.contains("Targets"))
         {
-            return TypedActionResult.fail(stack);
-        }
-        else
-        {
-            if(Tag.contains("Targets") && user.isSneaking())
-            {
-                user.playSound(soundinit.DET,0.5f,1.0f);
-                String[] Targets = Tag.getString("Targets").split("/");
-                for(String Target : Targets)
-                {
-                    String[] Location = Target.split(",");
-                    BlockPos Pos = new BlockPos(Integer.parseInt(Location[0]),Integer.parseInt(Location[1]),Integer.parseInt(Location[2]));
-                    world.createExplosion(null,Pos.getX(),Pos.getY(),Pos.getZ(), 5.0f,Explosion.DestructionType.DESTROY);
-                }
-                stack.setNbt(null);
-            }
+            world.playSound(user,user.getBlockPos(),soundinit.DET, SoundCategory.PLAYERS,0.5f,1f);
+            NbtList Targets = Tag.getList("Targets", 8);
+            Targets.forEach(
+                    tag -> {
+                        String[] Pos = tag.asString().split(",");
+                        BlockPos Position = new BlockPos(Integer.parseInt(Pos[0]),Integer.parseInt(Pos[1]),Integer.parseInt(Pos[2]));
+                        world.createExplosion(null,Position.getX(),Position.getY(),Position.getZ(),5f, Explosion.DestructionType.DESTROY);
+                    }
+            );
+            stack.setNbt(null);
         }
         return super.use(world, user, hand);
     }
@@ -55,31 +52,38 @@ public class BlueRemote extends Item
     @Override
     public ActionResult useOnBlock(ItemUsageContext context)
     {
-        ItemStack Stack = context.getStack();
-        NbtCompound Tag = Stack.getNbt();
-        PlayerEntity user = context.getPlayer();
+        ItemStack stack = context.getStack();
+        NbtCompound Tag = stack.getOrCreateNbt();
         BlockPos Pos = context.getBlockPos();
-        World world = context.getWorld();
-        if(Tag == null)
+        if(!context.getPlayer().isSneaking() && context.getWorld().getBlockState(Pos).getBlock() == blockinit.BLUE_EXPLOSIVE)
         {
-            Tag = new NbtCompound();
-        }
-        if(!user.isSneaking() && world.getBlockState(Pos).getBlock() == blockinit.BLUE_EXPLOSIVE)
-        {
-            user.playSound(soundinit.SET,0.5f,1.0f);
+            String Position = Pos.getX() + "," + Pos.getY() + "," + Pos.getZ();
             if(Tag.contains("Targets"))
             {
-                String Targets = Tag.getString("Targets");
-                Targets += "/" + Pos.getX() + "," + Pos.getY() + "," + Pos.getZ();
-                Tag.putString("Targets",Targets);
+                NbtList Targets = Tag.getList("Targets",8);
+                NbtString T = NbtString.of(Position);
+                if(Targets.contains(T))
+                {
+                    context.getWorld().playSound(context.getPlayer(),context.getPlayer().getBlockPos(),soundinit.REM, SoundCategory.PLAYERS,0.5f,1f);
+                    Targets.remove(T);
+                    Tag.put("Targets",Targets);
+                }
+                else
+                {
+                    context.getWorld().playSound(context.getPlayer(),context.getPlayer().getBlockPos(),soundinit.SET,SoundCategory.PLAYERS,0.5f,1f);
+                    Targets.add(T);
+                    Tag.put("Targets",Targets);
+                }
             }
             else
             {
-                String Targets = Pos.getX() + "," + Pos.getY() + "," + Pos.getZ();
-                Tag.putString("Targets",Targets);
+                context.getWorld().playSound(context.getPlayer(),context.getPlayer().getBlockPos(),soundinit.SET,SoundCategory.PLAYERS,0.5f,1f);
+                NbtList Targets = new NbtList();
+                Targets.add(NbtString.of(Position));
+                Tag.put("Targets",Targets);
             }
         }
-        Stack.setNbt(Tag);
+        stack.setNbt(Tag);
         return super.useOnBlock(context);
     }
 }
